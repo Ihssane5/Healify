@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="eng">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Aesthetic Template">
+    <meta name="keywords" content="Aesthetic, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Healify</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/query-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/healytics-chat_style.css' %}" type="text/css">
+
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__btn">
+            <a href="#" class="primary-btn">Appointment</a>
+        </div>
+        <ul class="offcanvas__widget">
+            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+            <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
+            <li><i class="fa fa-clock-o"></i> Mon to Sat 9:00am to 18:00pm</li>
+        </ul>
+        <div class="offcanvas__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <ul class="header__top__left">
+                            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+                            <li><i class="fa fa-map-marker"></i> Address</li>
+                            <li><i class="fa fa-clock-o"></i> Time</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="header__top__right">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="{%url 'home'%}"><img src="{% static 'img/healify_txt_bg (1).png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="header__menu__option">
+                        <nav class="header__menu">
+                            <ul>
+                                <li class="active"><a href="{%url 'home'%}">Home</a></li>
+                                <li><a href="{%url 'about' %}">About</a></li>
+                                <li><a href="{%url 'home' %}">Services</a></li>
+                                <!--<li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="./pricing.html">Pricing</a></li>
+                                        <li><a href="./doctor.html">Doctor</a></li>
+                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>-->
+                                <li><a href="{% url 'contact'%}">Contact</a></li>
+                            </ul>
+                        </nav>
+                        <div class="header__btn">
+                            {% if current_patient %}
+                                <a href="{% url 'logout' %}" class="primary-btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="primary-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+     <!---->
+    <section class="breadcrumb-option spad set-bg" data-setbg="{% static 'img/healytics.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2 style="color: Black">healytics-chat</h2>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Home</a>
+                            <a href="./about.html">About</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Chat Section Begin-->
+    <div class="chat-container">
+        <div class="top-info-bar">
+             <span class="flex items-center"><i class="fas fa-exclamation-triangle warning-icon"></i>Medical AI Chat</span>
+             <span><i class="fas fa-user-md"></i> Healify Assistant <i class="fas fa-heartbeat ml-2"></i></span>
+        </div>
+        <div class="message-container" id="message-container">
+            <div class="system-message">
+                <i class="fas fa-robot mr-2"></i>
+                Welcome to Healify AI Chat! I am here to provide information and answer your questions related to your medical records. Please note I am an AI and not a substitute for professional medical advice.
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="Enter your message...">
+            <button id="send-button"><i class="fas fa-paper-plane"></i> Send</button>
+        </div>
+    </div>
+
+    <!-- Chat Section End -->
+    
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="footer__copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="footer__copyright__text">
+                            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <ul>
+                            <li>All Rights Reserved</li>
+                            <li>Terms & Use</li>
+                            <li>Privacy Policy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!--<script>
+        const messageContainer = document.getElementById('message-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+
+            if (messageText === '') return;
+
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('message-bubble', 'user-message');
+            userMessage.textContent = messageText;
+            messageContainer.appendChild(userMessage);
+            messageInput.value = '';
+
+            setTimeout(() => {
+                const aiResponse = document.createElement('div');
+                aiResponse.classList.add('message-bubble', 'ai-message');
+                const simulatedResponses = [
+                    "I can see you have a question about your recent lab results.  The AI notes elevated creatinine levels, which can indicate kidney function.  This should be discussed with your doctor.",
+                    "Based on your uploaded record, you have a history of hypertension.  It's important to monitor your blood pressure regularly and adhere to your medication.",
+                    "The AI has flagged a potential interaction between your new medication and a pre-existing condition.  Please consult your physician to ensure this is safe for you.",
+                    "I've analyzed your symptoms and they may suggest a few possibilities, including  [Condition A] or [Condition B].  However, I cannot provide a diagnosis.  Please see a doctor for proper evaluation.",
+                    "I can provide information about [Medical Condition X], including common symptoms, treatments, and lifestyle recommendations.  Would you like me to do that?",
+                    "The AI suggests you schedule a follow-up appointment with your cardiologist to discuss the findings in your recent ECG.",
+                    "According to the record, your immunization status for [Vaccine Name] is due for a booster.  Please check with your doctor.",
+                    "I've detected keywords in your record that indicate you may be experiencing [Symptom].  It's important to get this checked out.",
+                    "Here is some information about managing your condition, including diet, exercise and lifestyle modifications.",
+                    "I can help you understand your medication, including dosage, side effects, and interactions."
+                ];
+                const responseText = simulatedResponses[Math.floor(Math.random() * simulatedResponses.length)];
+                aiResponse.textContent = responseText;
+                messageContainer.appendChild(aiResponse);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }, 1500);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>-->
+    <script>
+        const messageContainer = document.getElementById('message-container');
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+
+            function sendMessage() {
+                const messageText = messageInput.value.trim();
+
+                if (messageText === '') return;
+
+                // Display user message immediately
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message-bubble', 'user-message');
+                userMessage.textContent = messageText;
+                messageContainer.appendChild(userMessage);
+                messageInput.value = '';
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+
+                // Send the user's message to the Django backend
+                fetch('/healytics/answerQuery/', { // Replace '/your-django-endpoint/' with the actual URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // You'll need a function to get the CSRF token
+                    },
+                    body: JSON.stringify({ 'query': messageText })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the AI response from Django
+                    const aiResponse = document.createElement('div');
+                    aiResponse.classList.add('message-bubble', 'ai-message');
+                    aiResponse.textContent = data.response; // Assuming your Django endpoint returns {'response': '...' }
+                    messageContainer.appendChild(aiResponse);
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                    const errorMessage = document.createElement('div');
+                    errorMessage.classList.add('message-bubble', 'error-message');
+                    errorMessage.textContent = 'Error communicating with the server.';
+                    messageContainer.appendChild(errorMessage);
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                });
+            }
+
+            // Function to get the CSRF token from cookies
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        let cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.startsWith(name + '=')) {
+                            cookieValue = cookie.substring(name.length + 1);
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+    </script>
+</body>
+
+</html>

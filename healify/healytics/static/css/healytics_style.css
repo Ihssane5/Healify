@@ -1,0 +1,253 @@
+.upload-analyze {
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #f9f9f9; /* Light background */
+  }
+
+  .service:hover {
+    cursor: pointer;
+    background-color: #0a5c69;
+    
+  }
+  
+  .section-title span {
+    color: #13a2b7; /* Template's primary color */
+  }
+  
+  .upload-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .upload-button {
+    background-color: #e6f7f2; /* Light background for button */
+    color: #333;
+    border: 1px solid #d1ece5;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-button:hover {
+    background-color: #d1ece5;
+  }
+  
+  .upload-form input[type="file"] {
+    display: none;
+  }
+  
+  .upload-submit {
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: #13a2b7; /* Template's primary color */
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-submit:hover {
+    background-color: #148f77; /* Darker shade for hover */
+  }
+  
+  /* Extracted Text Area (Below Upload) */
+  .extracted-text-area {
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+    height: 300px; /* Adjust height as needed */
+  }
+  
+  .extracted-text-area h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .extracted-text-content {
+    height: fit-content;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 15px;
+    font-family: monospace; /* Mimic document text */
+    font-size: 14px;
+    color: #555;
+    white-space: pre-wrap; /* Preserve formatting */
+  }
+  
+  .extracted-text-content textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    font-family: monospace;
+    font-size: 14px;
+    color: #555;
+    white-space: pre-wrap;
+  }
+  
+  /* Analysis Area (To the Right) */
+  .analysis-area {
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px; /* Consistent padding */
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    height: auto !important; /* Force auto height */
+    overflow: visible !important; /* Ensure content isn't hidden */
+  }
+  
+  .analysis-area h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+  
+  .doctor-ai-image {
+    flex-shrink: 0;
+    width: 100%; /* Adjust as needed */
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .doctor-ai-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .analysis-content {
+    display: block !important; /* Force block display */
+    height: auto !important; /* Force auto height */
+    overflow: visible !important; /* Ensure content isn't hidden */
+  }
+  
+  .analysis-text-container {
+    display: block !important; /* Force block display */
+    height: auto !important; /* Force auto height */
+    overflow: visible !important; /* Ensure content isn't hidden */
+    justify-content: flex-start; /* Align text to the top */
+  }
+  
+  .analysis-text-container p {
+    margin-bottom: 1em; /* Add spacing between paragraphs */
+  }
+  
+  .analysis-output-text {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #555;
+    white-space: pre-wrap;
+    overflow-y: auto; /* Keep the scrollbar if needed for very long text */
+    text-align: left;
+    height: auto !important; /* Force auto height */
+  }
+  
+  .analysis-output-text ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+  }
+  
+  .analysis-output-text li {
+    margin-bottom: 8px;
+  }
+  
+  .analysis-output-text li i {
+    color: #13a2b7; /* Use your template's primary color */
+    margin-right: 8px;
+  }
+  
+  .talk-button {
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: #13a2b7; /* Template's primary color */
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .talk-button i {
+    margin-right: 10px;
+  }
+  
+  .upload-form input[type="file"] {
+    display: none; /* Hide the default file input */
+  }
+  
+  .upload-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #ddd;
+  }
+  
+  .upload-submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .upload-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .upload-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .file-type-info {
+    color: red;
+    margin-top: 5px;
+    font-size: 0.9em;
+  }

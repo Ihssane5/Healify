@@ -1,0 +1,451 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+    <div class="chat-app">
+        <!-- Partie gauche : Historique -->
+        <div class="history-panel">
+            <div class="history-header">
+                <div class="history-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4B5563" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                History
+                </div>
+                <a href="?new_chat=true" class="new-chat-btn" id="new-chat-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    New chat
+                </a>
+            </div>
+            
+            <!-- Dans la partie history-items -->
+<div class="history-items">
+    {% for conv in conversations %}
+    <div class="history-item {% if current_conversation.id == conv.id %}active{% endif %}">
+        <div class="history-item-content" onclick="window.location.href='?conversation={{ conv.id }}'">
+            <div style="font-weight: 500;">{{ conv.title }}</div>
+            <small style="color: #6b7280;">{{ conv.created_at|date:"d/m/Y H:i" }}</small>
+        </div>
+        <button class="delete-conversation-btn" data-conversation-id="{{ conv.id }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 7L18.1327 19.1425C18.0579 20.1891 17.187 21 16.1378 21H7.86224C6.81296 21 5.94208 20.1891 5.86732 19.1425L5 7M10 11V17M14 11V17M15 7V4C15 3.44772 14.5523 3 14 3H10C9.44772 3 9 3.44772 9 4V7M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal de confirmation -->
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+        <p>Confirm deletion of this conversation?</p>
+<div class="modal-actions">
+    <button id="confirmDeleteBtn" class="btn-danger">Confirm Delete</button>
+    <button id="cancelDeleteBtn" class="btn-secondary">Cancel</button>
+</div>
+    </div>
+</div>
+        </div>
+        
+        <!-- Partie droite : Chat -->
+        <div class="chat-panel">
+            <!-- Messages -->
+            <!-- Dans la partie messages (remplacez la section actuelle des messages) -->
+<div class="messages" id="chat-messages">
+    {% for msg in messages %}
+        {% if msg.sender == 'user' %}
+            <div class="message user-message">
+                {% if msg.is_image %}
+                    <img src="{{ msg.image_url }}" style="max-width: 200px; border-radius: 8px;" alt="Uploaded skin image">
+                {% else %}
+                    {{ msg.content }}
+                {% endif %}
+                <div class="message-time">{{ msg.timestamp }}</div>
+            </div>
+        {% else %}
+            <div class="message bot-message">
+                {% if msg.diagnosis %}
+                    <div class="diagnosis-card">
+                        <h4>Skin Analysis Results</h4>
+                        <div class="diagnosis-result">
+                            <span class="label">Condition:</span>
+                            <span class="value">{{ msg.diagnosis.condition }}</span>
+                        </div>
+                        <div class="confidence-level">
+                            <span class="label">Confidence:</span>
+                            <span class="value">{{ msg.diagnosis.confidence }}%</span>
+                        </div>
+                        <div class="medical-info">
+                            <h5>Key Information:</h5>
+                            {{ msg.diagnosis.medical_info|linebreaks }}
+                        </div>
+                    </div>
+                {% else %}
+                    {{ msg.content|safe }}
+                {% endif %}
+                <div class="message-time">{{ msg.timestamp }}</div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+            
+            <!-- Zone de saisie -->
+            <div class="input-area">
+                <div class="input-container">
+                    <button class="img-btn" id="img-btn" title="Ajouter une image">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 16L8.586 11.414C8.961 11.039 9.47 10.828 10 10.828C10.53 10.828 11.039 11.039 11.414 11.414L16 16M14 14L15.586 12.414C15.961 12.039 16.47 11.828 17 11.828C17.53 11.828 18.039 12.039 18.414 12.414L20 14M14 8H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        id="user-input" 
+                        placeholder="Écrivez votre message..." 
+                        aria-label="Zone de saisie"
+                    >
+                </div>
+                <button class="send-btn" id="send-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Variables globales
+    const currentConversationId = "{{ current_conversation.id|default:'null' }}";  
+    const csrfToken = "{{ csrf_token }}";
+    const input = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chat = document.getElementById('chat-messages');
+    
+    // Fonction améliorée pour sauvegarder les messages
+    async function saveMessageToServer(sender, content, message_type = 'text') {
+        try {
+            const response = await fetch("{% url 'save_message' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    conversation_id: currentConversationId !== 'null' ? currentConversationId : null,
+                    sender: sender,
+                    content: content,
+                    message_type: message_type
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.status === 'success';
+
+        } catch (error) {
+            console.error("Échec de la sauvegarde:", error);
+            return false;
+        }
+    }
+
+    // Fonction pour ajouter un message à l'interface
+    function addMessageToUI(content, sender, isImage = false) {
+    const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${messageClass}`;
+    
+    if (sender === 'bot' && typeof content === 'object' && content.diagnosis) {
+        // Formatage spécial pour les résultats de diagnostic
+        messageDiv.innerHTML = `
+            <div class="diagnosis-card">
+                <h4>Skin Analysis Results</h4>
+                <div class="diagnosis-result">
+                    <span class="label">Condition:</span>
+                    <span class="value">${content.diagnosis.condition}</span>
+                </div>
+                <div class="confidence-level">
+                    <span class="label">Confidence:</span>
+                    <span class="value">${content.diagnosis.confidence}%</span>
+                </div>
+                <div class="medical-info">
+                    <h5>Key Information:</h5>
+                    ${content.diagnosis.medical_info.replace(/\n/g, '<br>')}
+                </div>
+            </div>
+            <div class="message-time">${timestamp}</div>
+        `;
+    } else {
+        // Formatage normal pour les autres messages
+        let messageContent = sender === 'bot' ? marked.parse(content) : content;
+        if (isImage) {
+            messageContent = `<img src="${content}" style="max-width: 200px; border-radius: 8px;" alt="Uploaded image">`;
+        }
+        messageDiv.innerHTML = `
+            ${messageContent}
+            <div class="message-time">${timestamp}</div>
+        `;
+    }
+    
+    chat.appendChild(messageDiv);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+    // Fonction principale pour envoyer un message
+    async function sendMessage() {
+    const messageContent = input.value.trim();
+    if (!messageContent) return;
+
+    // 1. Sauvegarder le message utilisateur
+    const saveResponse = await fetch("{% url 'save_message' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({
+            conversation_id: currentConversationId !== 'null' ? currentConversationId : null,
+            sender: 'user',
+            content: messageContent,
+            message_type: 'text'
+        })
+    });
+
+    const saveResult = await saveResponse.json();
+    if (saveResult.status !== 'success') {
+        alert("Erreur lors de la sauvegarde de votre message");
+        return;
+    }
+
+    // Mettre à jour l'ID de conversation si c'est une nouvelle
+    if (!currentConversationId || currentConversationId === 'null') {
+        window.history.replaceState({}, '', `?conversation=${saveResult.conversation_id}`);
+        currentConversationId = saveResult.conversation_id;
+    }
+
+    // 2. Afficher le message utilisateur
+    addMessageToUI(messageContent, 'user');
+    input.value = '';
+
+    // 3. Afficher l'indicateur de saisie
+    const typingIndicatorId = 'typing-indicator';
+    chat.innerHTML += `
+        <div class="message bot-message" id="${typingIndicatorId}">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    `;
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+        // 4. Récupérer l'historique complet de la conversation
+        const historyResponse = await fetch(`/assistant/get_conversation_history/?conversation_id=${currentConversationId}`);
+        const history = await historyResponse.json();
+        
+        // 5. Préparer les messages pour l'API
+        const apiMessages = history.messages.map(msg => ({
+            role: msg.sender === 'user' ? 'user' : 'assistant',
+            content: msg.content
+        }));
+
+        // 6. Envoyer à l'API OpenRouter avec tout l'historique
+        const apiResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer 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',
+                'HTTP-Referer': 'https://www.sitename.com',
+                'X-Title': 'SiteName',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'deepseek/deepseek-r1:free',
+                messages: apiMessages,
+            }),
+        });
+        
+        const apiData = await apiResponse.json();
+        const botResponse = apiData.choices?.[0]?.message?.content || 'Sorry, I couldn\'t get a response. Please try again.';
+
+        // 7. Supprimer l'indicateur de saisie
+        const typingIndicator = document.getElementById(typingIndicatorId);
+        if (typingIndicator) typingIndicator.remove();
+
+        // 8. Sauvegarder la réponse du bot
+        const botMessageSaved = await saveMessageToServer('bot', botResponse);
+        
+        if (!botMessageSaved) {
+            console.error('Failed to save bot response');
+        }
+
+        // 9. Afficher la réponse du bot
+        addMessageToUI(botResponse, 'bot');
+
+    } catch (error) {
+        const typingIndicator = document.getElementById(typingIndicatorId);
+        if (typingIndicator) typingIndicator.remove();
+        
+        addMessageToUI(`An error occurred: ${error.message}`, 'bot');
+    }
+}
+
+    // Événements
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // Gestion simplifiée de l'upload d'image (à compléter plus tard)
+    // Remplacez la fonction alert dans le click du bouton image par :
+document.getElementById('img-btn').addEventListener('click', function() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    
+    // Dans la fonction de callback de l'upload d'image
+    // Dans la fonction de callback de l'upload d'image
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('conversation_id', currentConversationId);
+        
+        try {
+            // 1. Envoi de l'image
+            const uploadResponse = await fetch("{% url 'save_message' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            });
+            
+            const uploadResult = await uploadResponse.json();
+            
+            if (uploadResult.status === 'success') {
+                // 2. Afficher immédiatement l'image
+                addMessageToUI(uploadResult.image_url, 'user', true);
+                
+                // 3. Afficher un indicateur de chargement
+                const loadingId = 'loading-' + Date.now();
+                chat.innerHTML += `
+                    <div class="message bot-message" id="${loadingId}">
+                        <div class="loading-indicator">
+                            Analyzing your image...
+                        </div>
+                    </div>
+                `;
+                chat.scrollTop = chat.scrollHeight;
+                
+                // 4. Lancer l'analyse de l'image
+                const analyzeResponse = await fetch("{% url 'analyze_image' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({
+                        image_path: uploadResult.image_path,
+                        message_id: uploadResult.message_id
+                    })
+                });
+                
+                const analyzeResult = await analyzeResponse.json();
+                
+                // 5. Supprimer l'indicateur de chargement
+                document.getElementById(loadingId).remove();
+                
+                // 6. Afficher les résultats
+                if (analyzeResult.status === 'success') {
+                    addMessageToUI({
+                        diagnosis: analyzeResult.diagnosis
+                    }, 'bot');
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            addMessageToUI("An error occurred while processing your image.", 'bot');
+        }
+    };
+    
+    fileInput.click();
+});
+
+    // Gestion de la suppression de conversation
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('confirmDeleteModal');
+        const deleteButtons = document.querySelectorAll('.delete-conversation-btn');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+        
+        let currentConversationToDelete = null;
+        
+        // Ouvrir le modal quand on clique sur supprimer
+        deleteButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentConversationToDelete = this.getAttribute('data-conversation-id');
+                modal.style.display = 'block';
+            });
+        });
+        
+        // Annuler la suppression
+        cancelDeleteBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            currentConversationToDelete = null;
+        });
+        
+        // Confirmer la suppression
+        confirmDeleteBtn.addEventListener('click', async function() {
+            if (currentConversationToDelete) {
+                try {
+                    const response = await fetch(`{% url 'delete_conversation' %}?id=${currentConversationToDelete}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrfToken
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Error during deletion');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error during deletion');
+                }
+                
+                modal.style.display = 'none';
+                currentConversationToDelete = null;
+            }
+        });
+        
+        // Fermer le modal si on clique en dehors
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                currentConversationToDelete = null;
+            }
+        });
+    });
+
+    
+</script>
+
+
+{% endblock %}

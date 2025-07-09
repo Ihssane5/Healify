@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Aesthetic Template">
+    <meta name="keywords" content="Aesthetic, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Healify </title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'accounts/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/slicknav.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assistant_medical/css/chatbot.css' %}">
+   
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__logo">
+            <a href="#"><img src="{% static 'img/logo.png'%}" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__btn">
+            <a href="#" class="primary-btn">Appointment</a>
+        </div>
+        <ul class="offcanvas__widget">
+            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+            <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
+            <li><i class="fa fa-clock-o"></i> Mon to Sat 9:00am to 18:00pm</li>
+        </ul>
+        <div class="offcanvas__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <ul class="header__top__left">
+                            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+                            <li><i class="fa fa-map-marker"></i> Address</li>
+                            <li><i class="fa fa-clock-o"></i> Time</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="header__top__right">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="{%url 'home'%}"><img src="{% static 'img/healify_txt_bg (1).png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="header__menu__option">
+                        <nav class="header__menu">
+                            <ul>
+                                <li class="active"><a href="{%url 'home'%}">Home</a></li>
+                                <li><a href="{%url 'about' %}">About</a></li>
+                                <li><a href="{%url 'home' %}">Services</a></li>
+                                <!--<li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="./pricing.html">Pricing</a></li>
+                                        <li><a href="./doctor.html">Doctor</a></li>
+                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>-->
+                                <li><a href="{% url 'contact'%}">Contact</a></li>
+                            </ul>
+                        </nav>
+                        <div class="header__btn">
+                            {% if current_patient %}
+                                <a href="{% url 'logout' %}" class="primary-btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="primary-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
